@@ -55,8 +55,8 @@
             formData.append("qty750ml", document.getElementById("qty750ml").value);
             formData.append("qty114L", document.getElementById("qty114L").value);
             formData.append("qty175L", document.getElementById("qty175L").value);
-
-            fetch("YOUR_WEB_APP_URL", {
+            console.log("BODY :::", formData);
+            fetch("https://script.google.com/macros/s/AKfycbzUPEHg799cZ403xr8QZLmEtnwD4dTYE7hGO6iuPvhR7QalpxCGBGWr5qrzjhvYnQOxXw/exec", {
                 method: "POST",
                 body: formData
             }).then(response => response.text())
