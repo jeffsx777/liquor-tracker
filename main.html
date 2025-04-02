@@ -1,80 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liquor Inventory Form</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Liquor Inventory Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body class="bg-gray-100 p-6">
-    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold mb-4">Liquor Inventory Form</h2>
-        <form id="inventoryForm" class="space-y-4">
-            <div>
-                <label class="block font-medium">Staff Name:</label>
-                <input type="text" id="staffName" required class="w-full border p-2 rounded">
-            </div>
+  <div id="app">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-2xl font-semibold mb-6">Liquor Inventory Form</h2>
 
-            <div>
-                <label class="block font-medium">Date:</label>
-                <input type="date" id="date" required class="w-full border p-2 rounded">
-            </div>
+      <form @submit.prevent="submitForm" class="space-y-6">
+        <div>
+          <label class="block font-medium">Staff Name:</label>
+          <input v-model="form.staffName" type="text" required class="w-full border p-2 rounded" />
+        </div>
 
-            <div>
-                <label class="block font-medium">Type of Liquor:</label>
-                <select id="liquorType" class="w-full border p-2 rounded">
-                    <option value="Vodka">Vodka</option>
-                    <option value="Whiskey">Whiskey</option>
-                    <option value="Rum">Rum</option>
-                </select>
-            </div>
+        <div>
+          <label class="block font-medium">Date:</label>
+          <input v-model="form.date" type="date" required class="w-full border p-2 rounded" />
+        </div>
 
-            <div>
-                <label class="block font-medium">Brand:</label>
-                <input type="text" id="brand" required class="w-full border p-2 rounded">
-            </div>
+        <div v-for="(liquor, lIndex) in form.liquors" :key="lIndex" class="border p-4 rounded">
+          <h3 class="text-lg font-semibold mb-4">{{ liquor.type }}</h3>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label class="block font-medium">750 ml:</label>
-                    <input type="number" id="qty750ml" value="0" class="w-full border p-2 rounded">
-                </div>
-                <div>
-                    <label class="block font-medium">1.14 L:</label>
-                    <input type="number" id="qty114L" value="0" class="w-full border p-2 rounded">
-                </div>
-                <div>
-                    <label class="block font-medium">1.75 L:</label>
-                    <input type="number" id="qty175L" value="0" class="w-full border p-2 rounded">
-                </div>
-            </div>
+          <div
+            v-for="(brand, bIndex) in liquor.brands"
+            :key="bIndex"
+            class="mb-4 bg-gray-50 p-4 rounded"
+          >
+            <p class="font-medium mb-2">Brand: {{ brand.name }}</p>
 
-            <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Submit</button>
-        </form>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium">750 ml:</label>
+                <input v-model.number="brand.qty750ml" type="number" class="w-full border p-2 rounded" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium">1.14 L:</label>
+                <input v-model.number="brand.qty114L" type="number" class="w-full border p-2 rounded" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium">1.75 L:</label>
+                <input v-model.number="brand.qty175L" type="number" class="w-full border p-2 rounded" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full bg-green-500 text-white p-2 rounded">Submit</button>
+      </form>
     </div>
+  </div>
 
-    <script>
-        document.getElementById("inventoryForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            let formData = new FormData();
-            formData.append("staffName", document.getElementById("staffName").value);
-            formData.append("date", document.getElementById("date").value);
-            formData.append("liquorType", document.getElementById("liquorType").value);
-            formData.append("brand", document.getElementById("brand").value);
-            formData.append("qty750ml", document.getElementById("qty750ml").value);
-            formData.append("qty114L", document.getElementById("qty114L").value);
-            formData.append("qty175L", document.getElementById("qty175L").value);
-            
-            fetch("https://script.google.com/macros/s/AKfycbzUPEHg799cZ403xr8QZLmEtnwD4dTYE7hGO6iuPvhR7QalpxCGBGWr5qrzjhvYnQOxXw/exec", {
-                method: "POST",
-                body: formData
-            }).then(response => response.text())
-            .then(data => {
-                alert("Data saved successfully!");
-                document.getElementById("inventoryForm").reset();
-            }).catch(error => console.error("Error:", error));
-        });
-    </script>
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          form: {
+            staffName: '',
+            date: '',
+            liquors: [
+              {
+                type: 'Vodka',
+                brands: [
+                  { name: 'Absolut', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Absolut Vanilla', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Grey Goose', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Belvedere', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Titos', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                ]
+              },
+              {
+                type: 'Gin',
+                brands: [
+                  { name: 'Beefeater', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Empress - 1908 Indigo', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Empress - 1908 Cucumber Lemon', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Empress - 1908 Cocktail', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Empress - 1908 Elderflower Rose', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Tangueray - Rangpur', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Tangueray - London Dry', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Tangueray - Flor De Sevilla', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Tangueray - No. Ten Batch Distilled', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Bombay - Bramble', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Bombay - Presse', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Bombay Sapphire - Sunset', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Bombay Sapphire - London Dry', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Hendrix', qty750ml: 0, qty114L: 0, qty175L: 0 },
+                  { name: 'Brokers', qty750ml: 0, qty114L: 0, qty175L: 0 },
+
+                ]
+              },
+            ]
+          }
+        };
+      },
+      methods: {
+        
+    submitForm() {
+  const { staffName, date, liquors } = this.form;
+
+  liquors.forEach(liquor => {
+    liquor.brands.forEach(brand => {
+      const formData = new FormData();
+      formData.append("staffName", staffName);
+      formData.append("date", date);
+      formData.append("liquorType", liquor.type); // Optional if you want this too
+      formData.append("brand", brand.name);
+      formData.append("qty750ml", brand.qty750ml);
+      formData.append("qty114L", brand.qty114L);
+      formData.append("qty175L", brand.qty175L);
+
+      fetch("https://script.google.com/macros/s/AKfycbzUPEHg799cZ403xr8QZLmEtnwD4dTYE7hGO6iuPvhR7QalpxCGBGWr5qrzjhvYnQOxXw/exec", {
+        method: "POST",
+        body: formData
+      })
+        .then(res => res.text())
+        .then(() => {
+          console.log(`Submitted ${liquor.type} - ${brand.name}`);
+        })
+        .catch(err => console.error("Error:", err));
+    }
+);
+  });
+
+  alert("All data submitted successfully!");
+  this.resetForm();
+}
+,
+        resetForm() {
+          this.form.staffName = '';
+          this.form.date = '';
+          this.form.liquors.forEach(liquor => {
+            liquor.brands.forEach(brand => {
+              brand.qty750ml = 0;
+              brand.qty114L = 0;
+              brand.qty175L = 0;
+            });
+          });
+        }
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>
