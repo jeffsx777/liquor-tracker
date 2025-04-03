@@ -713,11 +713,12 @@
             }
           },
 
-          submitForm() {
+          async submitForm() {
+            // add open modal
             const { staffName, date, liquors } = this.form;
 
-            liquors.forEach((liquor) => {
-              liquor.brands.forEach((brand) => {
+            for (const liquor of liquors) {
+              for (const brand of liquor.brands) {
                 const formData = new FormData();
                 formData.append("staffName", staffName);
                 formData.append("date", date);
@@ -727,20 +728,24 @@
                 formData.append("qty114L", brand.qty114L);
                 formData.append("qty175L", brand.qty175L);
 
-                fetch(
-                  "https://script.google.com/macros/s/AKfycbzUPEHg799cZ403xr8QZLmEtnwD4dTYE7hGO6iuPvhR7QalpxCGBGWr5qrzjhvYnQOxXw/exec",
-                  {
-                    method: "POST",
-                    body: formData,
-                  }
-                )
-                  .then((res) => res.text())
-                  .then(() => {
-                    console.log(`Submitted ${liquor.type} - ${brand.name}`);
-                  })
-                  .catch((err) => console.error("Error:", err));
-              });
-            });
+                try {
+                  const response = await fetch(
+                    "https://script.google.com/macros/s/AKfycbzUPEHg799cZ403xr8QZLmEtnwD4dTYE7hGO6iuPvhR7QalpxCGBGWr5qrzjhvYnQOxXw/exec",
+                    {
+                      method: "POST",
+                      body: formData,
+                    }
+                  );
+                  const text = await response.text();
+                    //add counter upload
+                  console.log(
+                    `Submitted ${liquor.type} - ${brand.name}: ${text}`
+                  );
+                } catch (err) {
+                  console.error("Error:", err);
+                }
+              }
+            }
 
             alert("All data submitted successfully!");
             this.resetForm();
