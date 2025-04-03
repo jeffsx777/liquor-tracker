@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   </head>
+  
   <body class="bg-gray-100 p-6">
     <div id="app">
       <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -52,6 +53,7 @@
                     <input
                       v-model.number="brand.qty750ml"
                       type="number"
+                      step="any"
                       class="w-full border p-2 rounded"
                     />
                   </div>
@@ -60,6 +62,7 @@
                     <input
                       v-model.number="brand.qty114L"
                       type="number"
+                      step="any"
                       class="w-full border p-2 rounded"
                     />
                   </div>
@@ -68,6 +71,7 @@
                     <input
                       v-model.number="brand.qty175L"
                       type="number"
+                      step="any"
                       class="w-full border p-2 rounded"
                     />
                   </div>
@@ -106,6 +110,17 @@
     </div>
 
     <script>
+
+        function showModal(id) {
+          document.getElementById(id).classList.remove("hidden");
+        }
+
+        // Function to close modal
+        function closeModal(id) {
+          document.getElementById(id).classList.add("hidden");
+        }
+
+
       const { createApp } = Vue;
 
       createApp({
@@ -124,7 +139,7 @@
                       name: "Absolut Vanilla",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Grey Goose", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Belvedere", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -135,78 +150,77 @@
                   type: "Gin",
                   brands: [
                     { name: "Beefeater", qty750ml: 0, qty114L: 0, qty175L: 0 },
-                    { name: "Beefeater", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Empress - 1908 Indigo",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Empress - 1908 Cucumber Lemon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Empress - 1908 Cocktail",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Empress - 1908 Elderflower Rose",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Tangueray - Rangpur",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Tangueray - London Dry",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Tangueray - Flor De Sevilla",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Tangueray - No. Ten Batch Distilled",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bombay - Bramble",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bombay - Presse",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bombay Sapphire - Sunset",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bombay Sapphire - London Dry",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Hendrix", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Brokers", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -219,133 +233,133 @@
                       name: "Wisers - Deluxe",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Wisers - Special Blend",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Jamieson - Irish",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Lot 40 - Rye Whisky",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Lot 40 - Cherry Wood Cask",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Crown Royal",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Crown Royal - Black",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Jack Daniels - Old 7",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Jack Daniels - Old 7 Tennessee Sour Mash",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Jack Daniels Honey",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Buffalo Trace - Kentucky Bourbon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Buffalo Trace - Bourbon Cream",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "JMakers Mark - 46",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Makers Mark - 101",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Makers Mark - Kentucky Bourbon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Canadian Club - Premium",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bookers - Bourbon Small Batch",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bookers Little Book - Chapter 04",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bulleit - Frontier Bourbon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bulleit - Barrell Strength Batch No. 08",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bulleit - 10 Year Old Frontier Kentucky Straight Bourbon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bulleit - Bourbon",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                   ],
                 },
@@ -356,19 +370,19 @@
                       name: "Glenlivet 12",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Glenfiddich 12",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Laphsoag 10",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Oban", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Dalmore", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -381,7 +395,7 @@
                       name: "Courvoisuer",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Hennesey", qty750ml: 0, qty114L: 0, qty175L: 0 },
                   ],
@@ -403,7 +417,7 @@
                       name: "Green Chartruese",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Campari", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Bols Blue", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -415,31 +429,31 @@
                       name: "Raspberry Sour Puss",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Green Apple Sour Puss",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Creme de Cocoa",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Melon Liquor",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Creme de Bananda",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Maraschino", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Kahlua", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -447,33 +461,33 @@
                       name: "Peach Schnapps",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Baileys", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Baileys Almond",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Grand Marier",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Lillet", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Butter Ripple Schnapps",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Creme de cassis",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Absinth", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Drambuie", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -481,7 +495,7 @@
                       name: "Peppermint Schnapps",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Fernet", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Limoncello", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -489,65 +503,65 @@
                       name: "Jagermister",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Pisco", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Bitter Rosso",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Yellow Chartruese",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Louis Regal",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "WoodFord", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Creme De Menthe",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Martini Rosso",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Martini Dry",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Southern Comfort",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Francelico", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Cherry Whiskey",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Soho", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     {
                       name: "Martini Bianco",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                   ],
                 },
@@ -558,25 +572,25 @@
                       name: "Red Bird Lager",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "V&V Love Potion",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "V&V Hazy IPA",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Corona Sunbrew",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     { name: "Guiness 0%", qty750ml: 0, qty114L: 0, qty175L: 0 },
                   ],
@@ -591,109 +605,109 @@
                       name: "Bread & Butter Pinot Noir",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Blasted Church Syrah",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "5 Vineyards - SAUVIGNON BLANC",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "5 Vineyards - Pinot Blanc",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "5 Vineyards - Cabernet Merlot",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "5 Vineyards - Pinot Grigio",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "5 Vineyards - Chardonnay",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Matua Pinot Gris",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bread & Butter Chardonnay 2019",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Bread & Butter Chardonnay Sliced",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Stoneleigh Sav Blanc - Marlborough",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Stoneleigh Sav Blanc - Lighter",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Stoneleigh Sav Blanc - Latitude",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "La Pieve Pergolo BTL",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Divin Red 0%",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "Divin White 0%",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "DIVIN Rose 0%",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                     {
                       name: "DIVIN Bubbly 0%",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0,
+                      qty175L: 0
                     },
                   ],
                 },
@@ -713,9 +727,14 @@
             }
           },
 
-          async submitForm() {
-            // add open modal
+  
+            async submitForm() {
+            // Open the modal
+            document.getElementById("uploadModal").classList.remove("hidden");
+
             const { staffName, date, liquors } = this.form;
+            let totalBrands = liquors.reduce((sum, liquor) => sum + liquor.brands.length, 0);
+            let uploadedCount = 0;
 
             for (const liquor of liquors) {
               for (const brand of liquor.brands) {
@@ -736,18 +755,20 @@
                       body: formData,
                     }
                   );
-                  const text = await response.text();
-                    //add counter upload
-                  console.log(
-                    `Submitted ${liquor.type} - ${brand.name}: ${text}`
-                  );
+                  await response.text();
+                  
+                  // Update the upload counter
+                  uploadedCount++;
+                  document.getElementById("uploadProgress").innerText = `${uploadedCount} / ${totalBrands} Uploaded`;
+
                 } catch (err) {
                   console.error("Error:", err);
                 }
               }
             }
 
-            alert("All data submitted successfully!");
+            closeModal("uploadModal");
+            showModal("successModal");
             this.resetForm();
           },
           resetForm() {
@@ -765,5 +786,23 @@
         },
       }).mount("#app");
     </script>
+
+    <!-- Upload Progress Modal -->
+<div id="uploadModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+    <h2 class="text-xl font-semibold mb-4">Uploading...</h2>
+    <p id="uploadProgress">0 / 0 Uploaded</p>
+  </div>
+</div>
+
+<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+  <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <p class="text-lg font-semibold">Upload Successful! 🎉</p>
+    <button onclick="closeModal('successModal')" class="mt-4 bg-blue-500 text-white px-6 py-2 rounded mx-auto block">
+      OK
+    </button>
+  </div>
+</div>
+
   </body>
 </html>
