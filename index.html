@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3"></script>
   </head>
-  
+
   <body class="bg-gray-100 p-6">
     <div id="app">
       <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -110,16 +110,14 @@
     </div>
 
     <script>
+      function showModal(id) {
+        document.getElementById(id).classList.remove("hidden");
+      }
 
-        function showModal(id) {
-          document.getElementById(id).classList.remove("hidden");
-        }
-
-        // Function to close modal
-        function closeModal(id) {
-          document.getElementById(id).classList.add("hidden");
-        }
-
+      // Function to close modal
+      function closeModal(id) {
+        document.getElementById(id).classList.add("hidden");
+      }
 
       const { createApp } = Vue;
 
@@ -139,7 +137,7 @@
                       name: "Absolut Vanilla",
                       qty750ml: 0,
                       qty114L: 0,
-                      qty175L: 0
+                      qty175L: 0,
                     },
                     { name: "Grey Goose", qty750ml: 0, qty114L: 0, qty175L: 0 },
                     { name: "Belvedere", qty750ml: 0, qty114L: 0, qty175L: 0 },
@@ -729,17 +727,30 @@
             }
           },
 
-  
-            async submitForm() {
+          async submitForm() {
             // Open the modal
             document.getElementById("uploadModal").classList.remove("hidden");
 
             const { staffName, date, liquors } = this.form;
-            let totalBrands = liquors.reduce((sum, liquor) => sum + liquor.brands.length, 0);
+            let filteredBrands = liquors.flatMap(liquor => 
+            liquor.brands.filter(brand => 
+              brand.qty750ml !== 0 || brand.qty114L !== 0 || brand.qty175L !== 0
+            )
+          );
+          let totalBrands = filteredBrands.length;
+
             let uploadedCount = 0;
 
             for (const liquor of liquors) {
               for (const brand of liquor.brands) {
+                if (
+                  brand.qty750ml === 0 &&
+                  brand.qty114L === 0 &&
+                  brand.qty175L === 0
+                ) {
+                  continue;
+                }
+
                 const formData = new FormData();
                 formData.append("staffName", staffName);
                 formData.append("date", date);
@@ -758,11 +769,12 @@
                     }
                   );
                   await response.text();
-                  
+
                   // Update the upload counter
                   uploadedCount++;
-                  document.getElementById("uploadProgress").innerText = `${uploadedCount} / ${totalBrands} Uploaded`;
-
+                  document.getElementById(
+                    "uploadProgress"
+                  ).innerText = `${uploadedCount} / ${totalBrands} Uploaded`;
                 } catch (err) {
                   console.error("Error:", err);
                 }
@@ -790,21 +802,29 @@
     </script>
 
     <!-- Upload Progress Modal -->
-<div id="uploadModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
-    <h2 class="text-xl font-semibold mb-4">Uploading...</h2>
-    <p id="uploadProgress">0 / 0 Uploaded</p>
-  </div>
-</div>
+    <div
+      id="uploadModal"
+      class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
+        <h2 class="text-xl font-semibold mb-4">Uploading...</h2>
+        <p id="uploadProgress">0 / 0 Uploaded</p>
+      </div>
+    </div>
 
-<div id="successModal" class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-  <div class="bg-white p-6 rounded-lg shadow-lg text-center">
-    <p class="text-lg font-semibold">Upload Successful! 🎉</p>
-    <button onclick="closeModal('successModal')" class="mt-4 bg-blue-500 text-white px-6 py-2 rounded mx-auto block">
-      OK
-    </button>
-  </div>
-</div>
-
+    <div
+      id="successModal"
+      class="hidden fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50"
+    >
+      <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <p class="text-lg font-semibold">Upload Successful! 🎉</p>
+        <button
+          onclick="closeModal('successModal')"
+          class="mt-4 bg-blue-500 text-white px-6 py-2 rounded mx-auto block"
+        >
+          OK
+        </button>
+      </div>
+    </div>
   </body>
 </html>
