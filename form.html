@@ -728,67 +728,65 @@
           },
 
           async submitForm() {
-            // Open the modal
-            document.getElementById("uploadModal").classList.remove("hidden");
+  document.getElementById("uploadModal").classList.remove("hidden");
 
-            const { staffName, date, liquors } = this.form;
-            
-            let filteredBrands = liquors.flatMap(liquor => 
-            liquor.brands.filter(brand => 
-              brand.qty750ml !== 0 || brand.qty114L !== 0 || brand.qty175L !== 0
-            )
-          );
-          let totalBrands = filteredBrands.length;
-          console.log("Form Data:", { staffName, date, liquors });
+  const { staffName, date, liquors } = this.form;
 
-            let uploadedCount = 0;
+  const filteredLiquors = liquors.map(liquor => ({
+    type: liquor.type,
+    brands: liquor.brands.filter(brand =>
+      brand.qty750ml !== 0 || brand.qty114L !== 0 || brand.qty175L !== 0
+    )
+  })).filter(liquor => liquor.brands.length > 0);
 
-            for (const liquor of liquors) {
-              for (const brand of liquor.brands) {
-                if (
-                  brand.qty750ml === 0 &&
-                  brand.qty114L === 0 &&
-                  brand.qty175L === 0
-                ) {
-                  continue;
-                }
+  const payload = {
+    staffName,
+    date,
+    liquors: filteredLiquors
+  };
+          // let totalBrands = filteredBrands.length;
+          // console.log("Form Data:", { staffName, date, liquors });
 
-                const formData = new FormData();
-                formData.append("staffName", staffName);
-                formData.append("date", date);
-                formData.append("liquorType", liquor.type);
-                formData.append("brand", brand.name);
-                formData.append("qty750ml", brand.qty750ml);
-                formData.append("qty114L", brand.qty114L);
-                formData.append("qty175L", brand.qty175L);
+          //   let uploadedCount = 0;
 
+          //   for (const liquor of liquors) {
+          //     for (const brand of liquor.brands) {
+          //       if (
+          //         brand.qty750ml === 0 &&
+          //         brand.qty114L === 0 &&
+          //         brand.qty175L === 0
+          //       ) {
+          //         continue;
+          //       }
 
+          //       const formData = new FormData();
+          //       formData.append("staffName", staffName);
+          //       formData.append("date", date);
+          //       formData.append("liquorType", liquor.type);
+          //       formData.append("brand", brand.name);
+          //       formData.append("qty750ml", brand.qty750ml);
+          //       formData.append("qty114L", brand.qty114L);
+          //       formData.append("qty175L", brand.qty175L);
 
-                try {
-                  const response = await fetch(
-                    "https://script.google.com/macros/s/AKfycbzwBtwQJwjwb8Yhupcco0gCHEVBMZMczQrwTkcDI0IsSiO5dj-LjincC68wNrBFXH16VA/exec",
-                    {
-                      method: "POST",
-                      body: formData,
-                    }
-                  );
-                  await response.text();
+          const formData = new FormData();
+  formData.append("payload", JSON.stringify(payload));
 
-                  // Update the upload counter
-                  uploadedCount++;
-                  document.getElementById(
-                    "uploadProgress"
-                  ).innerText = `${uploadedCount} / ${totalBrands} Uploaded`;
-                } catch (err) {
-                  console.error("Error:", err);
-                }
-              }
-            }
+  try {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzxZLsEFYT9dMf69EW9UBZpA2b-XSyae61600rxxcwMj4lt4KLNIYsJZ4tUMVTvpkhRZA/exec", {
+      method: "POST",
+      body: formData
+    });
 
-            closeModal("uploadModal");
-            showModal("successModal");
-            this.resetForm();
-          },
+    const result = await response.text();
+    console.log("Server Response:", result);
+  } catch (err) {
+    console.error("Error submitting form:", err);
+  }
+
+  closeModal("uploadModal");
+  showModal("successModal");
+  this.resetForm();
+},
           
           resetForm() {
             this.currentLiquorIndex = 0;
@@ -813,7 +811,7 @@
     >
       <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
         <h2 class="text-xl font-semibold mb-4">Uploading...</h2>
-        <p id="uploadProgress">0 / 0 Uploaded</p>
+        <p id="uploadProgress">Submitting Data...</p>
       </div>
     </div>
 
